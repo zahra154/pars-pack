@@ -1,0 +1,12 @@
+<nz-table [nzData]="displayData" #table>
+  <thead>
+  <tr>
+    <th nz-th nzShowFilter [nzFilters]="nameList" (nzFilterChange)="filter($event,searchAddress)">Name</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of table.data">
+    <td>{{ item.name }}</td>
+  </tr>
+  </tbody>
+</nz-table>

@@ -1,0 +1,46 @@
+@import 'src/scss/variables';
+
+
+// @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+html {
+  font-size: 12px;
+}
+
+body {
+  box-sizing: border-box;
+  direction: rtl;
+  font-size: 1rem;
+  text-align: center;
+  font-family: $font-family-base;
+  margin: 0;
+  color: #8790A8;
+
+}
+
+html,
+body {
+  height: 100vh;
+
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+/* relevant styles */
+
+.text-right{
+  text-align: right!important;
+}
+
+.text-left{
+  text-align: left!important;
+}
+.pointer{
+  cursor: pointer!important;
+}

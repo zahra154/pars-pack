@@ -2,7 +2,6 @@ import {AddressModel} from "./address.model";
 import {CompanyModel} from "./company.model";
 
 export interface UsersModel  {
-
   id : number;
   name: string;
   username : string;
@@ -11,7 +10,6 @@ export interface UsersModel  {
   phone: string;
   website: string;
   company: CompanyModel;
-
 
   }
 

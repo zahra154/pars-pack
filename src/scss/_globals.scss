@@ -24,23 +24,27 @@ body {
 
 }
 
-a {
-  text-decoration: none;
+
+
+.ant-modal-body{
+  height: 400px!important;
 }
 
-li {
-  list-style: none;
+.ant-table-container, .ant-table-container table>thead>tr:first-child th {
+  text-align: center;
+}
+.ant-table-container, .ant-table-container table tr  {
+  text-align: center;
 }
 
-/* relevant styles */
 
-.text-right{
-  text-align: right!important;
-}
+ .ant-pagination-item-link .anticon-right{
+  transform: rotate(180deg);
+   padding-top: 2px !important;
 
-.text-left{
-  text-align: left!important;
 }
-.pointer{
-  cursor: pointer!important;
+.ant-pagination-item-link .anticon-left{
+  transform: rotate(180deg);
+  padding-top: 2px !important;
+
 }

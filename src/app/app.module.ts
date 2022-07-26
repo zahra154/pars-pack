@@ -7,6 +7,7 @@ import { UsersComponent } from './users/users.component';
 import {ShareModule} from "./@shared/share.module";
 import {HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {NzTableModule} from "ng-zorro-antd/table";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ShareModule
+    ShareModule,
+    NzTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

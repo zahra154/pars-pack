@@ -1,9 +1,5 @@
-<div class="table-operations">
-  <button nz-button (click)="sortByAge()">Sort age</button>
-  <button nz-button (click)="resetFilters()">Clear filters</button>
-  <button nz-button (click)="resetSortAndFilters()">Clear filters and sorters</button>
-</div>
-<nz-table #filterTable [nzData]="listOfData" nzTableLayout="fixed">
+
+<nz-table class="w-100" #filterTable [nzData]="listOfData" nzTableLayout="fixed" [nzPageSize]="5" dir="rtl" >
   <thead>
   <tr>
     <th
@@ -13,15 +9,21 @@
       [nzFilters]="column.listOfFilter"
       [nzFilterFn]="column.filterFn"
     >
-      {{ column.name }}
+      {{ column.faName}}
     </th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let data of filterTable.data">
+    <td>{{ data.id }}</td>
     <td>{{ data.name }}</td>
-    <td>{{ data.age }}</td>
-    <td>{{ data.address }}</td>
+    <td>{{ data.username }}</td>
+    <td>{{ data.email }}</td>
+    <td>{{ data.phone }}</td>
+    <td>{{ data.website }}</td>
+    <td>{{data.company.name}}<td>
+      <button class="btn btn-info text-white" (click)="action('modal' , data.address)"> آدرس</button>
+    </td>
   </tr>
   </tbody>
 </nz-table>

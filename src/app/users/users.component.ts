@@ -1,74 +1,111 @@
-
-import { Component, OnInit } from '@angular/core';
-import {NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder} from "ng-zorro-antd/table";
-import {UsersModel} from "../@shared/models/users.model";
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {UsersService} from "../@shared/services/users.service";
+import {UsersModel} from "../@shared/models/users.model";
+import {NzModalRef, NzModalService} from "ng-zorro-antd/modal";
+import {GeoComponent} from "../@shared/components/geo/geo.component";
+import * as L from "leaflet";
 
 
-interface ColumnItem {
-  name: string;
-  sortOrder: NzTableSortOrder | null;
-  sortFn: NzTableSortFn<UsersModel> | null;
-  listOfFilter: NzTableFilterList;
-  filterFn: NzTableFilterFn<UsersModel> | null;
-}
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent  {
-  nameList = [
-    { text: 'Joe', value: 'Joe', checked: true },
-    { text: 'Jim', value: 'Jim', checked: false }
-  ];
+export class UsersComponent implements OnInit {
+public users: UsersModel[] = [];
+public listOfFilterName :{name:'',value:''}[]=[];
+   listOfColumns = [
+     {
+       name: 'id',
+       faName: 'شماره',
+       sortOrder: null,
+     },
+     {
+       name: 'name',
+       faName: 'نام',
+       sortOrder: null,
+       sortFn: (a: UsersModel, b: UsersModel) => a.name.localeCompare(b.name),
+     },
+     {
+       name: 'username',
+       faName: 'نام کاربری',
+       sortOrder: null,
+       sortFn:  (a: UsersModel, b: UsersModel) => a.username.localeCompare(b.username),
+     },
+     {
+       name: 'email',
+       faName: 'ایمیل',
+     },
+     {
+       name: 'phone',
+       faName: 'شماره همراه',
+     },
+     {
+       name: 'website',
+       faName: 'وب سایت',
+     },
 
-  data = [
-    {
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
-    },
-    {
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
-    },
-    {
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    },
-    {
-      name: 'Jim Red',
-      age: 32,
-      address: 'London No. 2 Lake Park'
-    }
-  ];
-  displayData = [...this.data];
-  sortName = null;
-  sortValue = null;
-  listOfSearchName: string[] = [];
-  searchAddress: string='';
+     {
+       name: 'company',
+       faName: 'شرکت',
+       listOfFilter: [
+         {text: 'Romaguera-Crona'  , value: 'Romaguera-Crona'} ,
+         {text: 'Abernathy Group'  , value: 'Abernathy Group'} ,
+       ],
+       filterFn: (list: string[], item: UsersModel) => list.some(company => item.company.name.indexOf(company) !== -1)
+     },
+     {
+       name: 'address',
+       faName: 'آدرس',
+     },
 
-  filter(listOfSearchName: string[], searchAddress: string): void {
-    this.listOfSearchName = listOfSearchName;
-    this.searchAddress = searchAddress;
-    this.search();
+   ];
+  constructor(private userService: UsersService ,
+              private viewContainerRef: ViewContainerRef,
+              private modal: NzModalService) { }
+
+  ngOnInit(): void {
+    this.getUsers();
   }
 
-  search(): void {
-    /** filter data **/
-    const filterFunc = (item: any) => (this.searchAddress ? item.address.indexOf(this.searchAddress) !== -1 : true) && (this.listOfSearchName.length ? this.listOfSearchName.some(name => item.name.indexOf(name) !== -1) : true);
-    const data = this.data.filter(item => filterFunc(item));
-    /** sort data **/
-    if (this.sortName) {
-     // this.displayData = data.sort((a, b) => (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
-    } else {
-      this.displayData = data;
+
+
+  private getUsers():void{
+    this.userService.getUsers().subscribe((users: Array<UsersModel>) => {
+      this.users = users;
+    });
+  }
+
+  createObject(name: string) {
+    const object: any = {
+      text: name,
+      value: name
     }
+    // @ts-ignore
+    this.listOfFilterName.push(object)
+    console.log('this.listOfFilterName' , this.listOfFilterName)
+  }
+
+
+  handelActions(event: any) : void{
+
+    if(event.obj){
+     const ref =   this.modal.create({
+       nzContent: GeoComponent,
+       nzComponentParams: {
+         address : event.obj.geo
+       },
+
+      });
+
+      ref.afterClose.subscribe((result => {
+        console.log('afterClose' , result)
+      }))
+
+
+    }
+
   }
 
 }
-

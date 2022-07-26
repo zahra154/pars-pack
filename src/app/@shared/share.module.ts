@@ -7,7 +7,7 @@ import {NzTableModule} from "ng-zorro-antd/table";
 import { CustomTableComponent } from './components/custom-table/custom-table.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import {CommonModule} from "@angular/common";
-import {en_US, NZ_I18N} from "ng-zorro-antd/i18n";
+import {en_US, fa_IR, NZ_I18N} from "ng-zorro-antd/i18n";
 import { GeoComponent } from './components/geo/geo.component';
 import { ModalComponent } from './components/modal/modal.component';
 
@@ -29,7 +29,7 @@ import { ModalComponent } from './components/modal/modal.component';
 
   ],
   providers:[
-    { provide: NZ_I18N, useValue: en_US }
+    { provide: NZ_I18N, useValue: fa_IR }
   ],
   exports:[
     LayoutComponent,

@@ -35,6 +35,21 @@ export class CustomTableComponent implements OnChanges , OnInit {
   }
 
 
-
+  resetSortAndFilters(): void {
+    this.listOfColumns.forEach((item: any) => {
+      item.sortOrder = null;
+    });
+    this.resetFilters();
+  }
+  resetFilters(): void {
+    this.listOfColumns.forEach((item:any) => {
+     if (item.name === 'Address') {
+        item.listOfFilter = [
+          { text: 'London', value: 'London' },
+          { text: 'Sidney', value: 'Sidney' }
+        ];
+      }
+    });
+  }
 
 }

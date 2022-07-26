@@ -1,4 +1,6 @@
-
+<div class="table-operations">
+  <button nz-button (click)="resetSortAndFilters()">Clear filters and sorters</button>
+</div>
 <nz-table class="w-100" #filterTable [nzData]="listOfData" nzTableLayout="fixed" [nzPageSize]="5" dir="rtl" >
   <thead>
   <tr>
